@@ -1,6 +1,20 @@
 import pandas as pd
+import tkinter as tk
+from tkinter import filedialog
+import os
+ 
+root = tk.Tk()
+root.withdraw()
+ 
+file_path = filedialog.askopenfilename()
 
-data = pd.read_csv('data.txt', sep=' ', names=['Date', 'Time', 'IA', 'CommunicateModuleIA',
+# print(file_path)
+
+save_file_path = os.path.splitext(file_path)[0]+'.csv'
+
+# print(save_file_path)
+
+data = pd.read_csv(file_path, sep=' ', names=['Date', 'Time', 'IA', 'CommunicateModuleIA',
                                                'Rssi', 'ProtectState', 'AlarmState',
                                                'BmsState', 'EqualizeState', 'Power', 'Capacity',
                                                'DischargeCurrentAverage', 'DischargeCurrentMax',
@@ -19,4 +33,4 @@ for i in range(row):
         data.loc[i][j] = str(data.loc[i][j]).split(':')[1]
 
 # 生成表格
-data.to_csv('data.csv')
+data.to_csv(save_file_path)
